@@ -87,6 +87,7 @@ INSERT INTO `orders` (`ORD_NUM`, `ORD_AMOUNT`, `ADVANCE_AMOUNT`, `ORD_DATE`, `CU
 ```
 
 	- Microsoft SQL Server (2017):  
+
 ```shell
 docker run --name vb6-mssqldb -p 1433:1433 \
 -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Solace1234" \
@@ -142,3 +143,4 @@ INSERT INTO ORDERS VALUES('200131', '900.00', '150.00', '08/26/2008', 'C00012', 
 INSERT INTO ORDERS VALUES('200133', '1200.00', '400.00', '06/29/2008', 'C00009', 'A002', 'SOD');
 ```
 
+TO BE CONTINUED, PLEASE WAIT...
