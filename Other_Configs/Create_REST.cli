@@ -1,0 +1,194 @@
+home
+enable
+configure
+
+! Create for server-side, service01
+message-spool message-vpn "default"
+    ! pragma:interpreter:ignore-already-exists
+    create queue "Q/svc01" primary
+        access-type "exclusive"
+        permission all "delete"
+        subscription topic "ASSY/ICONND/WBI001"
+		subscription topic "ASSY/BROADCAST"
+        no shutdown
+        exit
+    exit
+
+message-vpn "default"
+    rest
+        ! pragma:interpreter:ignore-already-exists
+        create rest-delivery-point "rdp-svc01"
+            shutdown
+            client-profile "default"
+            ! pragma:interpreter:ignore-already-exists
+            create queue-binding "Q/svc01"
+                post-request-target "/svc01"
+                    exit
+            ! pragma:interpreter:ignore-already-exists
+            create rest-consumer "rc-svc01"
+                shutdown
+                remote host "10.10.10.168"
+                remote port "8081"
+                no shutdown
+                exit
+            no shutdown
+            exit
+        exit
+    exit
+end
+
+home
+enable
+configure
+
+! Create for server-side, service02
+message-spool message-vpn "default"
+    ! pragma:interpreter:ignore-already-exists
+    create queue "Q/svc02" primary
+        access-type "exclusive"
+        permission all "delete"
+        subscription topic "ASSY/ICONND/WBI002"
+		subscription topic "ASSY/BROADCAST"
+        no shutdown
+        exit
+    exit
+
+message-vpn "default"
+    rest
+        ! pragma:interpreter:ignore-already-exists
+        create rest-delivery-point "rdp-svc02"
+            shutdown
+            client-profile "default"
+            ! pragma:interpreter:ignore-already-exists
+            create queue-binding "Q/svc02"
+                post-request-target "/svc02"
+                    exit
+            ! pragma:interpreter:ignore-already-exists
+            create rest-consumer "rc-svc02"
+                shutdown
+                remote host "10.10.10.168"
+                remote port "8082"
+                no shutdown
+                exit
+            no shutdown
+            exit
+        exit
+    exit
+end
+
+home
+enable
+configure
+
+! Create for server-side, service03 (DB access)
+message-spool message-vpn "default"
+    ! pragma:interpreter:ignore-already-exists
+    create queue "Q/svc03" primary
+        access-type "exclusive"
+        permission all "delete"
+        subscription topic "CMD/SQL/SELECT_REQUEST"
+		subscription topic "ASSY/BROADCAST"
+        no shutdown
+        exit
+    exit
+
+message-vpn "default"
+    rest
+        ! pragma:interpreter:ignore-already-exists
+        create rest-delivery-point "rdp-svc03"
+            shutdown
+            client-profile "default"
+            ! pragma:interpreter:ignore-already-exists
+            create queue-binding "Q/svc03"
+                post-request-target "/svc03"
+                    exit
+            ! pragma:interpreter:ignore-already-exists
+            create rest-consumer "rc-svc03"
+                shutdown
+                remote host "10.10.10.168"
+                remote port "9081"
+                no shutdown
+                exit
+            no shutdown
+            exit
+        exit
+    exit
+end
+
+home
+enable
+configure
+
+! Create for server-side, service04 (DB access)
+message-spool message-vpn "default"
+    ! pragma:interpreter:ignore-already-exists
+    create queue "Q/svc04" primary
+        access-type "exclusive"
+        permission all "delete"
+        subscription topic "CMD/SQL/SELECT_REQUEST"
+		subscription topic "ASSY/BROADCAST"
+        no shutdown
+        exit
+    exit
+
+message-vpn "default"
+    rest
+        ! pragma:interpreter:ignore-already-exists
+        create rest-delivery-point "rdp-svc04"
+            shutdown
+            client-profile "default"
+            ! pragma:interpreter:ignore-already-exists
+            create queue-binding "Q/svc04"
+                post-request-target "/svc04"
+                    exit
+            ! pragma:interpreter:ignore-already-exists
+            create rest-consumer "rc-svc04"
+                shutdown
+                remote host "10.10.10.168"
+                remote port "9082"
+                no shutdown
+                exit
+            no shutdown
+            exit
+        exit
+    exit
+end
+
+home
+enable
+configure
+
+! Create for client-side
+message-spool message-vpn "default"
+    ! pragma:interpreter:ignore-already-exists
+    create queue "Q/client01" primary
+        access-type "exclusive"
+        permission all "delete"
+        subscription topic "OLD/CLIENT01/REPLY/*"
+        no shutdown
+        exit
+    exit
+
+message-vpn "default"
+    rest
+        ! pragma:interpreter:ignore-already-exists
+        create rest-delivery-point "rdp-client01"
+            shutdown
+            client-profile "default"
+            ! pragma:interpreter:ignore-already-exists
+            create queue-binding "Q/client01"
+                post-request-target "/client01"
+                    exit
+            ! pragma:interpreter:ignore-already-exists
+            create rest-consumer "rc-client01"
+                shutdown
+                remote host "10.10.10.168"
+                remote port "9999"
+                no shutdown
+                exit
+            no shutdown
+            exit
+        exit
+    exit
+end
+

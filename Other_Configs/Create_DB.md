@@ -1,27 +1,4 @@
-# VB6-Solace-REST-PoC
-This shows how we can communicate old-school VB6 (Visual Basic 6) with the latest technology.
-
-## Before you start
-1. Obtain the connection to Solace PS+ Broker. You may:  
-	- Follow [these instructions](https://cloud.solace.com/learn/group_getting_started/ggs_signup.html) to quickly spin up a cloud-based Solace messaging service for your applications.
-	- Follow [these instructions](https://docs.solace.com/Solace-SW-Broker-Set-Up/Setting-Up-SW-Brokers.htm) to start the Solace VMR in leading Clouds, Container Platforms or Hypervisors. The tutorials outline where to download and how to install the Solace VMR.
-	- If your company has Solace message routers deployed, contact your middleware team to obtain the host name or IP address of a Solace message router to test against, a username and password to access it, and a VPN in which you can produce and consume messages.
-
-2. Check our nice REST messaging samples [here](https://solace.com/samples/solace-samples-rest-messaging/).
-
-3. If you want to learn more on Solace REST messaging, check [here](https://docs.solace.com/Open-APIs-Protocols/REST-get-start.htm).
-
-## Quick Start
-1. Clone this repository.
-
-2. Configuring REST Delivery Points on your broker:  
-	- Connect to broker CLI.
-	- Open Create_REST.cli in any text editor.
-	- Copy all content in that file and paste to your CLI prompt.
-	- Check your RDPs with CLI or Web UI. There should be 5 queues and 5 RDPs.
-
-3. _(OPTIONAL)_ Create databases with Docker:
-	- MariaDB:  
+# Create MariaDB (MySQL) database
 ```shell
 docker run --name vb6-mariadb -p 3306:3306 \
 -e MYSQL_ROOT_PASSWORD=Solace1234 -e MYSQL_DATABASE=vb6-db \
@@ -32,7 +9,6 @@ docker run --name vb6-mariadb -p 3306:3306 \
 ```
 
 ```sql
--- REFER TO: https://www.w3resource.com/sql/sql-table.php
 CREATE TABLE IF NOT EXISTS `orders` (
   `ORD_NUM` decimal(6,0) NOT NULL,
   `ORD_AMOUNT` decimal(12,2) NOT NULL,
@@ -86,7 +62,7 @@ INSERT INTO `orders` (`ORD_NUM`, `ORD_AMOUNT`, `ADVANCE_AMOUNT`, `ORD_DATE`, `CU
 ('200132', '4000.00', '2000.00', '2008-08-15', 'C00013', 'A013  ', 'SOD\r');
 ```
 
-	- Microsoft SQL Server (2017):  
+# Create SQL Server (MSSQL) database
 ```shell
 docker run --name vb6-mssqldb -p 1433:1433 \
 -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Solace1234" \
@@ -141,4 +117,3 @@ INSERT INTO ORDERS VALUES('200135', '2000.00', '800.00', '09/16/2008', 'C00007',
 INSERT INTO ORDERS VALUES('200131', '900.00', '150.00', '08/26/2008', 'C00012', 'A012', 'SOD');
 INSERT INTO ORDERS VALUES('200133', '1200.00', '400.00', '06/29/2008', 'C00009', 'A002', 'SOD');
 ```
-
